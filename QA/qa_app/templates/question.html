@@ -1,0 +1,36 @@
+{% extends 'head.html' %}
+{% block content %}
+    {% include 'header.html' %}
+    <div class="container">
+        <h1>{{ question.title }}</h1>
+        <p>{{ question.content }}</p>
+
+        <h2>Ответы</h2>
+        {% if answers %}
+            {% for answer in answers %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p class="card-text">Пользователь: {{ answer.author.username }}</p>
+                        <p class="card-text">Ответ: {{ answer.content }}</p>
+                        <p class="card-text">Время: {{ answer.created_at|date:"d.m.Y H:i" }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Пока нет ответов.</p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+			<h2>Ответить на вопрос</h2>
+			<form method="post" action="{% url 'question_detail' question_id=question.id %}">
+				{% csrf_token %}
+				<div class="form-group">
+					{{ form.as_p }}
+				</div>
+				<button type="submit" class="btn btn-primary">Отправить ответ</button>
+			</form>
+			{% else %}
+				<p>Только авторизованные пользователи могут отвечать на вопросы.</p>
+			{% endif %}
+    {% include 'footer.html' %}
+{% endblock %}

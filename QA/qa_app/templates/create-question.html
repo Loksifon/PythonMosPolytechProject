@@ -1,0 +1,12 @@
+{% extends 'head.html' %}
+{% block content %}
+{% include 'header.html' %}
+<section class="container">
+    <h1>Создание вопроса</h1>
+    <form method="post" action="{% url 'create_question' %}">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-primary">Создать</button>
+    </form>
+</section>
+{% endblock %}

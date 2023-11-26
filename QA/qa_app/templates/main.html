@@ -1,0 +1,39 @@
+{% extends 'head.html' %}
+{% block content %}
+{% include 'header.html' %}
+<section class="container">
+	<h1>О компании</h1>
+	<p>Здесь вы можете прочитать информацию о нашей компании.</p>
+	<h2>Отзывы</h2>
+	
+	{% if user.is_authenticated %}
+	<form method="post" action="{% url 'add_comment' %}">
+		{% csrf_token %}
+		<div class="form-group mb-2">
+			<label for="comment">Оставьте свой отзыв:</label>
+			<textarea class="form-control" id="comment" name="content" rows="3" required></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Отправить</button>
+	</form>
+	{% else %}
+	<p>Чтобы оставить отзыв, пожалуйста, <a href="{% url 'login' %}">авторизуйтесь</a>.</p>
+	{% endif %}
+	<div class="comments mt-3">
+		{% for comment in comments %}
+		<div class="card mb-3">
+			<div class="card-body">
+				<p class="card-text">Автор: {{ comment.author }}</p>
+				<p class="card-text">{{ comment.content }}</p>
+				<p class="card-text">Дата: {{ comment.created_at }}</p>
+			</div>
+		</div>
+		{% empty %}
+		<p>Пока нет отзывов.</p>
+		{% endfor %}
+	</div>
+	{% include 'pagination.html' %}
+
+</section>
+{% include 'footer.html' %}
+
+{% endblock %}

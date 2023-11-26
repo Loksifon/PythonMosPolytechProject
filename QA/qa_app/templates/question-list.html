@@ -1,0 +1,24 @@
+{% extends 'head.html' %}
+{% block content %}
+{% include 'header.html' %}
+<section class="container">
+	{% include 'pagination.html' %}
+	<h1>Список вопросов</h1>
+	<ul class="list-group gap-3">
+		{% for question in questions %}
+		<li class="list-group-item" style="border-top-width: 1px;">
+			<h3><a href="{% url 'question_detail' question.id %}">{{ question.title }}</a></h3>
+			<p class="mb-1">Автор: {{ question.author }}</p>
+			<p class="mb-1">Дата создания: {{ question.created_at }}</p>
+			<p class="mb-1">Теги:
+				{% for tag in question.tags.all %}
+				<span class="badge badge-primary" style="background-color: gray; color: white;">{{ tag.name }}</span>
+				{% endfor %}
+			</p>
+		</li>
+		{% endfor %}
+	</ul>
+
+</section>
+{% include 'footer.html' %}
+{% endblock %}
