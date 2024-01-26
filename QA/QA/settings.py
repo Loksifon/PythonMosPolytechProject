@@ -22,12 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-7f=0*)()m-ypt!oyh7t2nck54cr2e11znlo=35&x=1np7sgi8o'
 
-
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -53,8 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	"debug_toolbar.middleware.DebugToolbarMiddleware",
-	'simple_history.middleware.HistoryRequestMiddleware',
+		"debug_toolbar.middleware.DebugToolbarMiddleware",
+		'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'QA.urls'
@@ -116,7 +113,9 @@ REST_FRAMEWORK = {
 
 	'DEFAULT_PERMISIION_CLASS': [
 		'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-	]
+	],
+
+	'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'], 
 }
 
 
@@ -138,7 +137,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    # ...
+    
+		"127.0.0.1",
+		
 ]

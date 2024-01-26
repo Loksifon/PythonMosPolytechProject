@@ -12,14 +12,6 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Категории'
 
 
 class Question(models.Model):
@@ -28,10 +20,9 @@ class Question(models.Model):
     content = models.TextField(verbose_name='Содержание')
     author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='questions', verbose_name='Автор')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
-
     tags = models.ManyToManyField('Tag', related_name='questions', verbose_name='Тэги')
     answers = models.ManyToManyField('Answer', related_name='question_answers', verbose_name='Ответы')
-
+    is_favorite = models.BooleanField(default=False)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -68,6 +59,8 @@ class Comment(models.Model):
 
     class Meta:
         verbose_name_plural = 'Комментарии'
+
+        
 
 
 class Tag(models.Model):
